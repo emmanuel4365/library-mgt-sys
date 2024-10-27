@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(function (req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' 'unsafe-inline'; img-src 'self' https://res.cloudinary.com; font-src 'self'; style-src 'self' 'unsafe-inline'"
+    "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' https://res.cloudinary.com; font-src 'self'; style-src 'self' 'unsafe-inline'"
   );
 
   next();

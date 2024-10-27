@@ -3,8 +3,6 @@ import Book from "../model/book.model.js";
 
 export const updateBorrowedBook = async (req, res) => {
   try {
-    console.log(req.params);
-
     const bookData = await Book.findByIdAndUpdate(
       req.params,
       {
@@ -12,6 +10,16 @@ export const updateBorrowedBook = async (req, res) => {
       },
       { new: true }
     );
+
+    if (bookData === null) {
+      const message = `No book with id: ${req.params._id}`;
+      res.status(StatusCodes.NOT_FOUND).json({
+        status: "error",
+        code: `${StatusCodes.NOT_FOUND}`,
+        message,
+      });
+      return;
+    }
 
     res.status(StatusCodes.OK).json({
       status: "success",
@@ -27,6 +35,7 @@ export const updateBorrowedBook = async (req, res) => {
         code: `${StatusCodes.NOT_FOUND}`,
         message,
       });
+      return;
     }
     res.status(StatusCodes.BAD_REQUEST).json({
       status: "error",
